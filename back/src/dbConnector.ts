@@ -3,6 +3,7 @@
 import mongoose from "mongoose";
 import { environment } from "../app-config";
 import { todoSchema } from "./todos/model";
+import { userSchema } from "./user/model";
 
 mongoose.connect(environment.development.dbString);
 
@@ -13,5 +14,6 @@ db.on("error", () => {
 });
 
 const Todos = mongoose.model("Todos", todoSchema);
+const User = mongoose.model("User", userSchema);
 
-export { Todos };
+export { Todos, User };

@@ -2,13 +2,14 @@ import {useMutation} from '@apollo/client';
 import React from 'react';
 import {View, Text, TouchableOpacity} from 'react-native';
 import styled from 'styled-components';
-import {DELETE_TODO, GET_TODOS} from '../graphql/typeDefs';
+import {DELETE_TODO, GET_TODOS, SET_TODO_DONE} from '../graphql/typeDefs';
 import {TodoType} from '../screens/TodoListScreen';
 
 interface TodoProps {
   todo: TodoType;
 }
 const Todo = ({todo}: TodoProps) => {
+  const [setTodoDone] = useMutation(SET_TODO_DONE);
   const [deleteTodo] = useMutation(DELETE_TODO, {
     update(cache, {data}) {
       const newTodoFromResponse = data?.deleteTodo;
@@ -28,9 +29,17 @@ const Todo = ({todo}: TodoProps) => {
     },
   });
 
+  const handleDoneTodo = async () => {
+    try {
+      await setTodoDone({variables: {todoId: todo.id}});
+    } catch (error) {
+      console.log('error', error);
+    }
+  };
+
   const handleDeleteTodo = async () => {
     try {
-      deleteTodo({variables: {todoId: todo.id}});
+      await deleteTodo({variables: {todoId: todo.id}});
     } catch (error) {
       console.log('error', error);
     }
@@ -42,6 +51,9 @@ const Todo = ({todo}: TodoProps) => {
         <TodoName>{todo.name}</TodoName>
         <TodoStatus>Status: {todo.status}</TodoStatus>
       </View>
+      <EditButton onPress={handleDoneTodo}>
+        <Text>Done</Text>
+      </EditButton>
       <DeleteButton onPress={handleDeleteTodo}>
         <Text>Delete</Text>
       </DeleteButton>
@@ -63,6 +75,12 @@ const TodoContainer = styled(View)`
 const TodoName = styled(Text)``;
 
 const TodoStatus = styled(Text)``;
+
+const EditButton = styled(TouchableOpacity)`
+  padding: 10px 20px;
+  background-color: pink;
+  border-radius: 7px;
+`;
 
 const DeleteButton = styled(TouchableOpacity)`
   padding: 10px 20px;

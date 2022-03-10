@@ -21,6 +21,7 @@ let todos = [
 ];
 const getTodos = () => {
     try {
+        console.log("asking for todos");
         return todos;
     }
     catch (error) {
@@ -30,8 +31,9 @@ const getTodos = () => {
 const createTodo = (_, { todoInput }) => {
     const { name, status } = todoInput;
     try {
-        todos.push({ name, status, id: todos.length + 1 });
-        return todos;
+        const newTodo = { name, status, id: todos.length + 1 };
+        todos.push(newTodo);
+        return newTodo;
     }
     catch (error) {
         throw error;

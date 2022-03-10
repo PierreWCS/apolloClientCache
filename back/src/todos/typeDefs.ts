@@ -14,7 +14,7 @@ export const typeDefs = gql`
   }
 
   type Mutation {
-    createTodo(todoInput: TodoInput!): [Todo]
+    createTodo(todoInput: TodoInput!): Todo
   }
 
   input TodoInput {

@@ -15,7 +15,7 @@ exports.typeDefs = (0, apollo_server_express_1.gql) `
   }
 
   type Mutation {
-    createTodo(todoInput: TodoInput!): [Todo]
+    createTodo(todoInput: TodoInput!): Todo
   }
 
   input TodoInput {

@@ -20,6 +20,8 @@ let todos = [
 
 const getTodos = () => {
   try {
+    console.log("asking for todos");
+
     return todos;
   } catch (error) {
     throw error;
@@ -36,8 +38,9 @@ interface CreateTodoInput {
 const createTodo = (_: any, { todoInput }: CreateTodoInput) => {
   const { name, status } = todoInput;
   try {
-    todos.push({ name, status, id: todos.length + 1 });
-    return todos;
+    const newTodo = { name, status, id: todos.length + 1 };
+    todos.push(newTodo);
+    return newTodo;
   } catch (error) {
     throw error;
   }

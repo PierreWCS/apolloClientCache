@@ -46,5 +46,23 @@ const createTodo = (_: any, { todoInput }: CreateTodoInput) => {
   }
 };
 
+interface DeleteTodoInput {
+  todoId: number;
+}
+
+const deleteTodo = (_: any, { todoId }: DeleteTodoInput) => {
+  const todosCopy = [...todos];
+  const todoToDelete = todosCopy.filter((todo) => todo.id === todoId);
+
+  try {
+    if (todosCopy.filter((todo) => todo.id === todoId).length) {
+      todos = todos.filter((todo) => todo.id !== todoId);
+      return todoToDelete[0];
+    }
+  } catch (error) {
+    throw error;
+  }
+};
+
 export const Queries = { getTodos };
-export const Mutations = { createTodo };
+export const Mutations = { createTodo, deleteTodo };

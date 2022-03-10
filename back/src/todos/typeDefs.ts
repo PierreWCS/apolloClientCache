@@ -4,7 +4,7 @@ import { gql } from "apollo-server-express";
 
 export const typeDefs = gql`
   type Todo {
-    id: String!
+    id: Int!
     status: String!
     name: String!
   }
@@ -15,6 +15,7 @@ export const typeDefs = gql`
 
   type Mutation {
     createTodo(todoInput: TodoInput!): Todo
+    deleteTodo(todoId: Int!): Todo
   }
 
   input TodoInput {

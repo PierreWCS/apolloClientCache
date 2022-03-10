@@ -1,24 +1,12 @@
 import React from 'react';
 import {ApolloClient, InMemoryCache, ApolloProvider} from '@apollo/client';
+import {NavigationContainer} from '@react-navigation/native';
 
-import TodoScreen from './src/screens/TodoScreen';
+import AddTodoScreen from './src/screens/AddTodoScreen';
+import TodoListScreen from './src/screens/TodoListScreen';
+import {createMaterialBottomTabNavigator} from '@react-navigation/material-bottom-tabs';
 
-export const cache = new InMemoryCache({
-  typePolicies: {
-    typeName: {
-      fields: {
-        fieldName: {
-          read(existing) {
-            // modify before read
-          },
-          merge(existing, incoming) {
-            // modify before write
-          },
-        },
-      },
-    },
-  },
-});
+export const cache = new InMemoryCache();
 
 const client = new ApolloClient({
   uri: 'http://localhost:3000/graphql',
@@ -31,12 +19,23 @@ export interface Todos {
   id: string;
 }
 
+const Tab = createMaterialBottomTabNavigator();
+
+const Tabs = () => (
+  <Tab.Navigator>
+    <Tab.Screen name="AddTodo" component={AddTodoScreen} />
+    <Tab.Screen name="TodoList" component={TodoListScreen} />
+  </Tab.Navigator>
+);
+
 export const todosVar = cache.makeVar<Todos[]>([]);
 
 const App = () => {
   return (
     <ApolloProvider client={client}>
-      <TodoScreen />
+      <NavigationContainer>
+        <Tabs />
+      </NavigationContainer>
     </ApolloProvider>
   );
 };

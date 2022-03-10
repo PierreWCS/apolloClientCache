@@ -1,44 +1,15 @@
-import {useMutation, useQuery} from '@apollo/client';
-import React, {useEffect, useRef, useState} from 'react';
+import {useMutation} from '@apollo/client';
+import React, {useRef, useState} from 'react';
 import {Text, TextInput, TouchableOpacity, View} from 'react-native';
 import styled from 'styled-components';
-import {todosVar} from '../../App';
-import Todo from '../components/Todo';
+import {ADD_TODO} from '../graphql/typeDefs';
 
-import {ADD_TODO, GET_TODOS} from '../graphql/typeDefs';
-
-export interface TodoType {
-  name: string;
-  status: string;
-  id: string;
-}
-
-const TodoScreen = () => {
+const AddTodoScreen = () => {
   const [todoName, setTodoName] = useState<string>('');
 
   const inputRef = useRef();
 
-  const {data} = useQuery(GET_TODOS);
   const [addTodo, {data: addTodoData}] = useMutation(ADD_TODO);
-
-  console.log('addtododata', addTodoData);
-
-  useEffect(() => {
-    if (data) {
-      console.log('data', data);
-
-      todosVar(data.getTodos);
-    }
-  }, [data]);
-
-  useEffect(() => {
-    if (addTodoData) {
-      console.log('addTodoData.createTodo', addTodoData.createTodo);
-      todosVar(addTodoData.createTodo);
-    }
-  }, [addTodoData]);
-
-  console.log('reactive variable', todosVar());
 
   const handleInputChange = (text: string) => {
     setTodoName(text);
@@ -57,7 +28,10 @@ const TodoScreen = () => {
 
   return (
     <Container>
+      <Spacer />
       <Title>Add a todo</Title>
+      <Spacer />
+
       <View style={{flexDirection: 'row'}}>
         {/* @ts-ignore */}
         <AddTodoInput ref={inputRef} onChangeText={handleInputChange} />
@@ -65,22 +39,11 @@ const TodoScreen = () => {
           <ButtonText>Add</ButtonText>
         </AddTodoButton>
       </View>
-
-      <Spacer />
-
-      <Title>Todo list</Title>
-      {todosVar() && (
-        <TodoList>
-          {todosVar().map((todo: TodoType) => (
-            <Todo key={todo.name} todo={todo} />
-          ))}
-        </TodoList>
-      )}
     </Container>
   );
 };
 
-export default TodoScreen;
+export default AddTodoScreen;
 
 const Container = styled(View)`
   height: 100%;
@@ -90,20 +53,15 @@ const Container = styled(View)`
   background-color: #253c78;
 `;
 
+const Spacer = styled(View)`
+  height: 25px;
+`;
+
 const Title = styled(Text)`
   color: #ffeecf;
   font-size: 26px;
   font-weight: 600;
 `;
-
-const TodoList = styled(View)`
-  padding-top: 20px;
-`;
-
-const Spacer = styled(View)`
-  height: 25px;
-`;
-
 const AddTodoInput = styled(TextInput)`
   background-color: lightgrey;
   padding-vertical: 10px;

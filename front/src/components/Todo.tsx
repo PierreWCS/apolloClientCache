@@ -1,17 +1,16 @@
 import React from 'react';
 import {View, Text} from 'react-native';
 import styled from 'styled-components';
-import {TodoType} from '../screens/TodoScreen';
+import {TodoType} from '../screens/TodoListScreen';
 
 interface TodoProps {
   todo: TodoType;
-  key: string;
 }
-const Todo = ({todo, key}: TodoProps) => {
+const Todo = ({todo}: TodoProps) => {
   console.log('todo in todo', todo);
 
   return (
-    <TodoContainer key={key}>
+    <TodoContainer>
       <TodoName>{todo.name}</TodoName>
       <TodoStatus>Status: {todo.status}</TodoStatus>
     </TodoContainer>

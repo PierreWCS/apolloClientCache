@@ -1,6 +1,7 @@
 package com.front;
 
 import com.facebook.react.ReactActivity;
+import android.os.Bundle;
 
 public class MainActivity extends ReactActivity {
 
@@ -9,6 +10,9 @@ public class MainActivity extends ReactActivity {
    * rendering of the component.
    */
   @Override
+  protected void onCreate(Bundle savedInstanceState) {
+  super.onCreate(null);
+  }
   protected String getMainComponentName() {
     return "front";
   }

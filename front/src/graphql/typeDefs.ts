@@ -20,4 +20,14 @@ const ADD_TODO = gql`
   }
 `;
 
-export {GET_TODOS, ADD_TODO};
+const DELETE_TODO = gql`
+  mutation deleteTodo($todoId: Int!) {
+    deleteTodo(todoId: $todoId) {
+      id
+      status
+      name
+    }
+  }
+`;
+
+export {GET_TODOS, ADD_TODO, DELETE_TODO};

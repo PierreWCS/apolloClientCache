@@ -31,6 +31,7 @@ const getTodos = () => {
 const createTodo = (_, { todoInput }) => {
     const { name, status } = todoInput;
     try {
+<<<<<<< HEAD
         const newTodo = { name, status, id: todos.length + 1 };
         todos.push(newTodo);
         return newTodo;
@@ -58,6 +59,10 @@ const deleteTodo = (_, { todoId }) => {
             todos = todos.filter((todo) => todo.id !== todoId);
             return todoToDelete[0];
         }
+=======
+        todos.push({ name, status, id: todos.length + 1 });
+        return todos[todos.length - 1]; // last element
+>>>>>>> 032876a (Add todo logic)
     }
     catch (error) {
         throw error;

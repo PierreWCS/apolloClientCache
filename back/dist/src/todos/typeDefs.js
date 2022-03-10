@@ -16,8 +16,11 @@ exports.typeDefs = (0, apollo_server_express_1.gql) `
 
   type Mutation {
     createTodo(todoInput: TodoInput!): Todo
+<<<<<<< HEAD
     setTodoDone(todoId: Int!): Todo
     deleteTodo(todoId: Int!): Todo
+=======
+>>>>>>> 032876a (Add todo logic)
   }
 
   input TodoInput {

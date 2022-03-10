@@ -46,6 +46,22 @@ const createTodo = (_: any, { todoInput }: CreateTodoInput) => {
   }
 };
 
+interface SetTodoDoneInput {
+  todoId: number;
+}
+
+const setTodoDone = (_: any, { todoId }: SetTodoDoneInput) => {
+  let todoIndex = todos.findIndex((todo) => todo.id === todoId);
+  console.log("todoIndex", todoIndex);
+
+  try {
+    todos[todoIndex].status = "done";
+    return todos[todoIndex];
+  } catch (error) {
+    throw error;
+  }
+};
+
 interface DeleteTodoInput {
   todoId: number;
 }
@@ -65,4 +81,4 @@ const deleteTodo = (_: any, { todoId }: DeleteTodoInput) => {
 };
 
 export const Queries = { getTodos };
-export const Mutations = { createTodo, deleteTodo };
+export const Mutations = { createTodo, setTodoDone, deleteTodo };

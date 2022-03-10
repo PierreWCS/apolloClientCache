@@ -39,6 +39,30 @@ const createTodo = (_, { todoInput }) => {
         throw error;
     }
 };
+const setTodoDone = (_, { todoId }) => {
+    let todoIndex = todos.findIndex((todo) => todo.id === todoId);
+    console.log("todoIndex", todoIndex);
+    try {
+        todos[todoIndex].status = "done";
+        return todos[todoIndex];
+    }
+    catch (error) {
+        throw error;
+    }
+};
+const deleteTodo = (_, { todoId }) => {
+    const todosCopy = [...todos];
+    const todoToDelete = todosCopy.filter((todo) => todo.id === todoId);
+    try {
+        if (todosCopy.filter((todo) => todo.id === todoId).length) {
+            todos = todos.filter((todo) => todo.id !== todoId);
+            return todoToDelete[0];
+        }
+    }
+    catch (error) {
+        throw error;
+    }
+};
 exports.Queries = { getTodos };
-exports.Mutations = { createTodo };
+exports.Mutations = { createTodo, setTodoDone, deleteTodo };
 //# sourceMappingURL=resolvers.js.map

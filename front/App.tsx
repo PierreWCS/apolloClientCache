@@ -23,8 +23,8 @@ const Tab = createMaterialBottomTabNavigator();
 
 const Tabs = () => (
   <Tab.Navigator>
-    <Tab.Screen name="AddTodo" component={AddTodoScreen} />
     <Tab.Screen name="TodoList" component={TodoListScreen} />
+    <Tab.Screen name="AddTodo" component={AddTodoScreen} />
   </Tab.Navigator>
 );
 

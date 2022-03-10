@@ -1,10 +1,9 @@
 import {useQuery} from '@apollo/client';
-import React, {useEffect} from 'react';
-import {Text, View} from 'react-native';
+import React from 'react';
+import {ScrollView, Text, View} from 'react-native';
 import styled from 'styled-components';
-import {todosVar} from '../../App';
-import Todo from '../components/Todo';
 
+import Todo from '../components/Todo';
 import {GET_TODOS} from '../graphql/typeDefs';
 
 export interface TodoType {
@@ -14,17 +13,7 @@ export interface TodoType {
 }
 
 const TodoListScreen = () => {
-  const {data} = useQuery(GET_TODOS, {});
-
-  useEffect(() => {
-    if (data) {
-      console.log('data', data);
-
-      todosVar(data.getTodos);
-    }
-  }, [data]);
-
-  console.log('reactive variable', todosVar());
+  const {data} = useQuery(GET_TODOS);
 
   return (
     <Container>
@@ -58,8 +47,9 @@ const Title = styled(Text)`
   font-weight: 600;
 `;
 
-const TodoList = styled(View)`
+const TodoList = styled(ScrollView)`
   padding-top: 20px;
+  margin-bottom: 20px;
 `;
 
 const Spacer = styled(View)`

@@ -30,6 +30,16 @@ const SET_TODO_DONE = gql`
   }
 `;
 
+const GET_ME = gql`
+  query getMe {
+    getMe {
+      id
+      firstname
+      lastname
+    }
+  }
+`;
+
 const DELETE_TODO = gql`
   mutation deleteTodo($todoId: Int!) {
     deleteTodo(todoId: $todoId) {
@@ -40,4 +50,14 @@ const DELETE_TODO = gql`
   }
 `;
 
-export {GET_TODOS, ADD_TODO, SET_TODO_DONE, DELETE_TODO};
+const UPDATE_USER = gql`
+  mutation updateUser($firstname: String!, $lastname: String!) {
+    updateUser(updateUserInput: {firstname: $firstname, lastname: $lastname}) {
+      id
+      firstname
+      lastname
+    }
+  }
+`;
+
+export {GET_TODOS, ADD_TODO, GET_ME, UPDATE_USER, SET_TODO_DONE, DELETE_TODO};
